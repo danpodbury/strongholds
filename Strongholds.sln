@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32014.148
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StrongholdsAPI", "StrongholdsAPI\StrongholdsAPI.csproj", "{8BF926C8-4AE9-42F2-97B5-68FA0230523C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Strongholds", "Strongholds\Strongholds.csproj", "{B33B9A7B-7238-43F8-AA7C-378493350133}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8BF926C8-4AE9-42F2-97B5-68FA0230523C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8BF926C8-4AE9-42F2-97B5-68FA0230523C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8BF926C8-4AE9-42F2-97B5-68FA0230523C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8BF926C8-4AE9-42F2-97B5-68FA0230523C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B33B9A7B-7238-43F8-AA7C-378493350133}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B33B9A7B-7238-43F8-AA7C-378493350133}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B33B9A7B-7238-43F8-AA7C-378493350133}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B33B9A7B-7238-43F8-AA7C-378493350133}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8960B5D8-677D-4A26-8983-42BEF83BFAE3}
+	EndGlobalSection
+EndGlobal

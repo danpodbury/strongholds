@@ -1,0 +1,57 @@
+using StrongholdsAPI.Data;
+using StrongholdsAPI.Managers;
+using Microsoft.EntityFrameworkCore;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// Add services to the container.
+builder.Services.AddDbContext<StrongholdsContext>(options =>
+    //options.UseSqlServer(builder.Configuration.GetConnectionString("StrongholdsContext"));
+    options.UseInMemoryDatabase(databaseName: "Main"));
+
+// Store session into Web-Server memory.
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options => options.Cookie.IsEssential = true );
+
+// Set up repository managers
+builder.Services.AddScoped<RobotManager>();
+builder.Services.AddScoped<LocationManager>();
+
+builder.Services.AddControllers();
+
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+var app = builder.Build();
+
+// Seed fake database
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    try
+    {
+        SeedData.Init(services);
+    }
+    catch (Exception ex)
+    {
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "An error occurred seeding the DB.");
+    }
+}
+
+
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
+app.UseHttpsRedirection();
+
+app.UseAuthorization();
+
+app.MapControllers();
+
+app.Run();
