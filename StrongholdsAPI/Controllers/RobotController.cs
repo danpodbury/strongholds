@@ -9,15 +9,13 @@ namespace StrongholdsAPI.Controllers
     public class RobotController : ControllerBase
     {
         private readonly RobotManager _repo;
-
         private readonly ILogger<RobotController> _logger;
 
         public RobotController(ILogger<RobotController> logger, RobotManager repo)
         {
             _logger = logger;
-            _repo = _repo;
+            _repo = repo;
         }
-
         
         // Returns a json list of all robots 
         [HttpGet, Route("/my/Robots/")]
@@ -33,4 +31,6 @@ namespace StrongholdsAPI.Controllers
             return _repo.Get(id);
         }
     }
+
+
 }

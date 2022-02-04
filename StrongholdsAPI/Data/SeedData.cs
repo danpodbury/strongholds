@@ -11,36 +11,30 @@ namespace StrongholdsAPI.Data
             context.Robots.AddRange(
                 new Robot
                 {
-                    Name = "simon",
-                    Coordinates = new()
+                    Name = "simon"
                 },
                 new Robot
                 {
-                    Name = "dave",
-                    Coordinates = new()
+                    Name = "dave"
                 },
                 new Robot
                 {
-                    Name = "casper",
-                    Coordinates = new()
+                    Name = "casper"
                 }
             );
 
             context.Locations.AddRange(
                 new Location
                 {
-                    Name = "Outpost 1",
-                    Coordinates = new()
+                    Name = "Outpost 1"
                 },
                 new Location
                 {
-                    Name = "Rocky outcrop",
-                    Coordinates = new()
+                    Name = "Rocky outcrop"
                 },
                 new Location
                 {
-                    Name = "crater",
-                    Coordinates = new()
+                    Name = "crater"
                 }
             );
 

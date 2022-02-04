@@ -8,7 +8,8 @@ namespace StrongholdsAPI.Models
         [Key]
         public int LocationID { get; set; }
         public string Name { get; set; }
-        public Coords Coordinates { get; set; }
+        public float latitude { get; set; } = 0f;
+        public float longitude { get; set; } = 0f;
 
     }
 

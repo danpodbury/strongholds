@@ -1,6 +1,9 @@
 using StrongholdsAPI.Data;
 using StrongholdsAPI.Managers;
+using StrongholdsAPI.Services;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using System.Net.Http.Headers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<StrongholdsContext>(options =>
     //options.UseSqlServer(builder.Configuration.GetConnectionString("StrongholdsContext"));
     options.UseInMemoryDatabase(databaseName: "Main"));
+
 
 // Store session into Web-Server memory.
 builder.Services.AddDistributedMemoryCache();
@@ -23,15 +27,20 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Add background services
+builder.Services.AddHostedService<GameService>();
+
 var app = builder.Build();
 
-// Seed fake database
+// Run startup tasks that require scoped services
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
     try
     {
+        // Seed fake database
         SeedData.Init(services);
+
     }
     catch (Exception ex)
     {
