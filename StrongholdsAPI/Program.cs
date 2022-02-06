@@ -9,9 +9,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddDbContext<StrongholdsContext>(options =>
-    //options.UseSqlServer(builder.Configuration.GetConnectionString("StrongholdsContext"));
-    options.UseInMemoryDatabase(databaseName: "Main"));
-
+    options.UseSqlServer(builder.Configuration.GetConnectionString("StrongholdsContext")) );
+    //options.UseInMemoryDatabase(databaseName: "Main"));
 
 // Store session into Web-Server memory.
 builder.Services.AddDistributedMemoryCache();

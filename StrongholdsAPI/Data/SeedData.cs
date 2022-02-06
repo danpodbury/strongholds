@@ -9,26 +9,36 @@ namespace StrongholdsAPI.Data
         {
             var context = serviceProvider.GetRequiredService<StrongholdsContext>();
 
+            // Check if DB is seeded
+            if (context.Logins.Any())
+            {
+                return; // DB has already been seeded.
+            }
+
             var token = Guid.NewGuid().ToString();
 
-            context.Logins.AddRange(
-
+            context.Logins.Add(
                 new Login
                 {
-                    LoginID = 1,
+                    //LoginID = 1,
                     Username = "admin",
                     Token = token,
                     HashedToken = PBKDF2.Hash(token),
-                },
+                }
+            );
+
+            token = Guid.NewGuid().ToString();
+
+            context.Logins.Add(
                 new Login
                 {
-                    LoginID = 2,
+                    //LoginID = 2,
                     Username = "test",
                     Token = token,
                     HashedToken = PBKDF2.Hash(token),
                 }
-
             );
+
 
             context.Robots.AddRange(
                 new Robot
