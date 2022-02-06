@@ -13,15 +13,34 @@ public class RobotManager
         _context = context;
     }
 
-    public List<Robot> Get()
+    public List<Robot> Get(string token)
     {
-        return _context.Robots.ToList();
+        try
+        {
+            var loginID = _context.Logins.Where(l => l.Token == token).ToList().First().LoginID;
+
+            return _context.Robots.Where(r => r.LoginID == loginID).ToList();
+        }
+        catch
+        {
+            throw new Exception("tried to get login ID of non existant account");
+        }
+ 
     }
 
 
-    public Robot Get(int id)
+    public Robot Get(int id, string token)
     {
-        return _context.Robots.Find(id);
+        try
+        {
+            var loginID = _context.Logins.Where(l => l.Token == token).ToList().First().LoginID;
+            return _context.Robots.Where(r => r.LoginID == loginID && r.RobotID == id).ToList().First();
+
+        } catch
+        {
+            throw new Exception($"Couldn't find robot id: {id} and token: {token}");
+        }
+        
     }
 
     

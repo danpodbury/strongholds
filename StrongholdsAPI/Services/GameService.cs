@@ -13,18 +13,13 @@ public class GameService : BackgroundService
     private const int tickFrequency = 10;               // time between ticks
     private const int tickRate = 60 / tickFrequency;    // updates per min    
 
-    private long totalTicks = 0;
+    private int totalTicks = 0;
     private DateTime serverStartTime = DateTime.Now;
-
-    public GameState GameState;
 
     public GameService(IServiceProvider services, ILogger<GameService> logger)
     {
         _services = services;
         _logger = logger;
-        //_clientFactory = clientFactory;
-        //_context = context;
-        //GameState = new GameState();
     }
 
     protected override async Task ExecuteAsync(CancellationToken cancellationToken)
@@ -55,32 +50,7 @@ public class GameService : BackgroundService
 
     private async Task<int> InitaliseGame()
     {
-        try
-        {
-            using (var scope = _services.CreateScope())
-            {
-                var context = scope.ServiceProvider.GetRequiredService<StrongholdsContext>();
-
-                // Initalise gamestate from DB
-                //var Robots = await context.Robots.ToListAsync();
-                //foreach (Robot r in Robots)
-                //{
-                //    GameState.Robots.Add(r);
-                //}
-                //var Locations = await context.Locations.ToListAsync();
-                //foreach (Location l in Locations)
-                //{
-                //    GameState.Locations.Add(l);
-                //}
-            }
-            return 0;
-        }
-        catch
-        {
-            _logger.LogCritical("Game failed to initalise from DB");
-            return 1;
-        }
-
+        return 0;
     }
 
     private void GameLoop()
@@ -95,27 +65,15 @@ public class GameService : BackgroundService
 
             foreach (Robot r in context.Robots)
             {
-                //context.Robots.Update(r);
-                if (r.RobotID % 2 == 0)
-                {
-                    r.latitude += 0.001f;
-                    r.longitude += 0.001f;
-                }
-                else
-                {
-                    r.latitude -= 0.001f;
-                    r.longitude -= 0.001f;
-                }
+                r.step();
             }
 
-
             context.SaveChanges();
-        
         }
 
         var dbUpdateTime = (DateTime.Now - dbStartTime).TotalMilliseconds;
 
-        _logger.LogInformation($"It took {dbUpdateTime} milliseconds to update the DB");
+        _logger.LogInformation($"It took =={dbUpdateTime}== milliseconds to update the DB");
     }
 
 }

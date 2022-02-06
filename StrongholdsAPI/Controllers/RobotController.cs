@@ -19,16 +19,16 @@ namespace StrongholdsAPI.Controllers
         
         // Returns a json list of all robots 
         [HttpGet, Route("/my/Robots/")]
-        public IEnumerable<Robot> Get()
+        public IEnumerable<Robot> Get(string token)
         {
-            return _repo.Get();
+            return _repo.Get(token);
         }
 
         // Returns a single robot by id
         [HttpGet, Route("/my/Robots/{id}")]
-        public Robot Get(int id)
+        public Robot Get(int id, string token)
         {
-            return _repo.Get(id);
+            return _repo.Get(id, token);
         }
     }
 

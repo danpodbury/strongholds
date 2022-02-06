@@ -1,4 +1,5 @@
 using StrongholdsAPI.Models;
+using SimpleHashing;
 
 namespace StrongholdsAPI.Data
 {
@@ -7,19 +8,43 @@ namespace StrongholdsAPI.Data
         public static async void Init(IServiceProvider serviceProvider)
         {
             var context = serviceProvider.GetRequiredService<StrongholdsContext>();
-            
+
+            var token = Guid.NewGuid().ToString();
+
+            context.Logins.AddRange(
+
+                new Login
+                {
+                    LoginID = 1,
+                    Username = "admin",
+                    Token = token,
+                    HashedToken = PBKDF2.Hash(token),
+                },
+                new Login
+                {
+                    LoginID = 2,
+                    Username = "test",
+                    Token = token,
+                    HashedToken = PBKDF2.Hash(token),
+                }
+
+            );
+
             context.Robots.AddRange(
                 new Robot
                 {
-                    Name = "simon"
+                    Name = "simon",
+                    LoginID = 1
                 },
                 new Robot
                 {
-                    Name = "dave"
+                    Name = "dave",
+                    LoginID = 1
                 },
                 new Robot
                 {
-                    Name = "casper"
+                    Name = "casper",
+                    LoginID = 2
                 }
             );
 

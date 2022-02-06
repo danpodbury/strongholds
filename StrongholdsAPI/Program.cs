@@ -20,6 +20,8 @@ builder.Services.AddSession(options => options.Cookie.IsEssential = true );
 // Set up repository managers
 builder.Services.AddScoped<RobotManager>();
 builder.Services.AddScoped<LocationManager>();
+builder.Services.AddScoped<LoginManager>();
+builder.Services.AddScoped<StationManager>();
 
 builder.Services.AddControllers();
 

@@ -3,28 +3,21 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace StrongholdsAPI.Models
 {
-    public class Robot
+    public class Station
     {
         [Key]
-        public int RobotID { get; set; }
+        public int StationID { get; set; }
 
         [ForeignKey("Login")]
         public int LoginID { get; set; }
-        public virtual Login Login { get; set; }
 
-        public string Name { get; set; }
+        public float Oxygen { get; set; } = 100f;
+        public float Power { get; set; } = 100f;
+        public List<Robot> Robots { get; set; } = new List<Robot>();
+
         public float latitude { get; set; } = 0f;
         public float longitude { get; set; } = 0f;
 
-
-        public void step()
-        {
-            if (RobotID % 2 == 0)
-            {
-                latitude += 0.001f;
-                longitude += 0.001f;
-            }
-        }
     }
 
 }
