@@ -52,21 +52,24 @@ public class StationManager
     {
         var loginID = _context.Logins.Where(l => l.Token == token).ToList().First().LoginID;
 
-        // Add default station and robot for new user
+        // Add default station for new user
         _context.Stations.Add(
             new Station
             {
                 LoginID = loginID
             }
         );
+        _context.SaveChanges();
+
+        // Add default robot for new user
         _context.Robots.Add(
             new Robot
             { 
                 Name = "bot01", 
-                LoginID = loginID 
+                LoginID = loginID,
+                StationID = _context.Stations.Where(s => s.LoginID == loginID).ToList().First().StationID,
             }
         );
-
         _context.SaveChanges();
     }
 

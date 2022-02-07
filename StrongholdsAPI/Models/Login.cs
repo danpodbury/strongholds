@@ -12,18 +12,19 @@ namespace StrongholdsAPI.Models
         
         public string HashedToken { get; set; }
 
-        //[NotMapped] dev only
+        // [NotMapped]
+        // leave mapped for dev only
         public string? Token { get; set; }
 
         [NotMapped]
         public Error? Error { get; set; }
 
 
-        //[InverseProperty("Login")]
-        //public virtual List<Robot>? Robots { get; set; }
-        //
-        //[InverseProperty("LoginID")]
-        //public virtual List<Station>? Stations { get; set; }
+        [InverseProperty("Login")]
+        public virtual List<Robot>? Robots { get; set; }
+        
+        [InverseProperty("Login")]
+        public virtual List<Station>? Stations { get; set; }
     }
 
     public interface IResponse

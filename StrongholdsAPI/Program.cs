@@ -9,8 +9,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddDbContext<StrongholdsContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("StrongholdsContext")) );
-    //options.UseInMemoryDatabase(databaseName: "Main"));
+{
+        options.UseSqlServer(builder.Configuration.GetConnectionString("StrongholdsContext"));
+        options.UseLazyLoadingProxies();
+});
 
 // Store session into Web-Server memory.
 builder.Services.AddDistributedMemoryCache();
@@ -41,7 +43,6 @@ using (var scope = app.Services.CreateScope())
     {
         // Seed fake database
         SeedData.Init(services);
-
     }
     catch (Exception ex)
     {
