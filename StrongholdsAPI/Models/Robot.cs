@@ -15,10 +15,10 @@ namespace StrongholdsAPI.Models
         public virtual Login Login { get; set; }
 
 
-        [ForeignKey("Station")]
-        public int StationID { get; set; }
-        [System.Text.Json.Serialization.JsonIgnore]
-        public virtual Station? Station { get; set; }
+        //[ForeignKey("Station")]
+        //public int? StationID { get; set; }
+        //[System.Text.Json.Serialization.JsonIgnore]
+        //public virtual Station? Station { get; set; }
 
 
         public string Name { get; set; } = "bot";

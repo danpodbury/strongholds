@@ -67,7 +67,7 @@ public class StationManager
             { 
                 Name = "bot01", 
                 LoginID = loginID,
-                StationID = _context.Stations.Where(s => s.LoginID == loginID).ToList().First().StationID,
+                 //StationID = _context.Stations.Where(s => s.LoginID == loginID).ToList().First().StationID,
             }
         );
         _context.SaveChanges();

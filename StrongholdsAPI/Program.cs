@@ -4,12 +4,13 @@ using StrongholdsAPI.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using System.Net.Http.Headers;
-
+using Microsoft.EntityFrameworkCore.InMemory;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddDbContext<StrongholdsContext>(options =>
 {
+        //options.UseInMemoryDatabase("Main");
         options.UseSqlServer(builder.Configuration.GetConnectionString("StrongholdsContext"));
         options.UseLazyLoadingProxies();
 });

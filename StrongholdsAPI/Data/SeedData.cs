@@ -15,6 +15,8 @@ namespace StrongholdsAPI.Data
                 return; // DB has already been seeded.
             }
 
+            Console.WriteLine("Seeding database");
+
             var token = Guid.NewGuid().ToString();
 
             context.Logins.Add(

@@ -21,6 +21,9 @@ namespace StrongholdsAPI.Models
 
     public class Objective
     {
+        [Key]
+        public int ObjectiveID { get; set; }
+
         [ForeignKey("Mission")]
         public int MissionID { get; set; }
 

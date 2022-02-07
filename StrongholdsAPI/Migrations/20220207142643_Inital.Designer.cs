@@ -12,8 +12,8 @@ using StrongholdsAPI.Data;
 namespace StrongholdsAPI.Migrations
 {
     [DbContext(typeof(StrongholdsContext))]
-    [Migration("20220206032536_moving-things")]
-    partial class movingthings
+    [Migration("20220207142643_Inital")]
+    partial class Inital
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -71,6 +71,51 @@ namespace StrongholdsAPI.Migrations
                     b.ToTable("Logins");
                 });
 
+            modelBuilder.Entity("StrongholdsAPI.Models.Mission", b =>
+                {
+                    b.Property<int>("MissionID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MissionID"), 1L, 1);
+
+                    b.Property<int>("LoginID")
+                        .HasColumnType("int");
+
+                    b.HasKey("MissionID");
+
+                    b.HasIndex("LoginID");
+
+                    b.ToTable("Mission");
+                });
+
+            modelBuilder.Entity("StrongholdsAPI.Models.Objective", b =>
+                {
+                    b.Property<int>("ObjectiveID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ObjectiveID"), 1L, 1);
+
+                    b.Property<int>("Act")
+                        .HasColumnType("int");
+
+                    b.Property<float>("Latitude")
+                        .HasColumnType("real");
+
+                    b.Property<float>("Longitude")
+                        .HasColumnType("real");
+
+                    b.Property<int>("MissionID")
+                        .HasColumnType("int");
+
+                    b.HasKey("ObjectiveID");
+
+                    b.HasIndex("MissionID");
+
+                    b.ToTable("Objective");
+                });
+
             modelBuilder.Entity("StrongholdsAPI.Models.Robot", b =>
                 {
                     b.Property<int>("RobotID")
@@ -79,27 +124,36 @@ namespace StrongholdsAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RobotID"), 1L, 1);
 
+                    b.Property<float>("Battery")
+                        .HasColumnType("real");
+
+                    b.Property<float>("Latitude")
+                        .HasColumnType("real");
+
                     b.Property<int>("LoginID")
+                        .HasColumnType("int");
+
+                    b.Property<float>("Longitude")
+                        .HasColumnType("real");
+
+                    b.Property<int>("Memory")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("MissionID")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("StationID")
-                        .HasColumnType("int");
-
-                    b.Property<float>("latitude")
-                        .HasColumnType("real");
-
-                    b.Property<float>("longitude")
+                    b.Property<float>("Speed")
                         .HasColumnType("real");
 
                     b.HasKey("RobotID");
 
                     b.HasIndex("LoginID");
 
-                    b.HasIndex("StationID");
+                    b.HasIndex("MissionID");
 
                     b.ToTable("Robots");
                 });
@@ -134,6 +188,28 @@ namespace StrongholdsAPI.Migrations
                     b.ToTable("Stations");
                 });
 
+            modelBuilder.Entity("StrongholdsAPI.Models.Mission", b =>
+                {
+                    b.HasOne("StrongholdsAPI.Models.Login", "Login")
+                        .WithMany()
+                        .HasForeignKey("LoginID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Login");
+                });
+
+            modelBuilder.Entity("StrongholdsAPI.Models.Objective", b =>
+                {
+                    b.HasOne("StrongholdsAPI.Models.Mission", "Mission")
+                        .WithMany("Objectives")
+                        .HasForeignKey("MissionID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Mission");
+                });
+
             modelBuilder.Entity("StrongholdsAPI.Models.Robot", b =>
                 {
                     b.HasOne("StrongholdsAPI.Models.Login", "Login")
@@ -142,13 +218,13 @@ namespace StrongholdsAPI.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("StrongholdsAPI.Models.Station", "Station")
-                        .WithMany("Robots")
-                        .HasForeignKey("StationID");
+                    b.HasOne("StrongholdsAPI.Models.Mission", "Mission")
+                        .WithMany()
+                        .HasForeignKey("MissionID");
 
                     b.Navigation("Login");
 
-                    b.Navigation("Station");
+                    b.Navigation("Mission");
                 });
 
             modelBuilder.Entity("StrongholdsAPI.Models.Station", b =>
@@ -169,9 +245,9 @@ namespace StrongholdsAPI.Migrations
                     b.Navigation("Stations");
                 });
 
-            modelBuilder.Entity("StrongholdsAPI.Models.Station", b =>
+            modelBuilder.Entity("StrongholdsAPI.Models.Mission", b =>
                 {
-                    b.Navigation("Robots");
+                    b.Navigation("Objectives");
                 });
 #pragma warning restore 612, 618
         }

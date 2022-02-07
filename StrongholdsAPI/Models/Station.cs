@@ -15,8 +15,8 @@ namespace StrongholdsAPI.Models
         public virtual Login Login { get; set; }
 
         // Robots docked at this station
-        [InverseProperty("Station")]
-        public virtual List<Robot>? Robots { get; set; }
+        //[InverseProperty("Station")]
+        //public virtual List<Robot>? Robots { get; set; }
 
 
         public float Oxygen { get; set; } = 100f;

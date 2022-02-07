@@ -39,6 +39,25 @@ namespace StrongholdsAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Mission",
+                columns: table => new
+                {
+                    MissionID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    LoginID = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Mission", x => x.MissionID);
+                    table.ForeignKey(
+                        name: "FK_Mission_Logins_LoginID",
+                        column: x => x.LoginID,
+                        principalTable: "Logins",
+                        principalColumn: "LoginID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Stations",
                 columns: table => new
                 {
@@ -53,6 +72,34 @@ namespace StrongholdsAPI.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Stations", x => x.StationID);
+                    table.ForeignKey(
+                        name: "FK_Stations_Logins_LoginID",
+                        column: x => x.LoginID,
+                        principalTable: "Logins",
+                        principalColumn: "LoginID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Objective",
+                columns: table => new
+                {
+                    ObjectiveID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    MissionID = table.Column<int>(type: "int", nullable: false),
+                    Latitude = table.Column<float>(type: "real", nullable: false),
+                    Longitude = table.Column<float>(type: "real", nullable: false),
+                    Act = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Objective", x => x.ObjectiveID);
+                    table.ForeignKey(
+                        name: "FK_Objective_Mission_MissionID",
+                        column: x => x.MissionID,
+                        principalTable: "Mission",
+                        principalColumn: "MissionID",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -63,9 +110,12 @@ namespace StrongholdsAPI.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     LoginID = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    latitude = table.Column<float>(type: "real", nullable: false),
-                    longitude = table.Column<float>(type: "real", nullable: false),
-                    StationID = table.Column<int>(type: "int", nullable: true)
+                    Latitude = table.Column<float>(type: "real", nullable: false),
+                    Longitude = table.Column<float>(type: "real", nullable: false),
+                    Battery = table.Column<float>(type: "real", nullable: false),
+                    Memory = table.Column<int>(type: "int", nullable: false),
+                    Speed = table.Column<float>(type: "real", nullable: false),
+                    MissionID = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -77,11 +127,21 @@ namespace StrongholdsAPI.Migrations
                         principalColumn: "LoginID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Robots_Stations_StationID",
-                        column: x => x.StationID,
-                        principalTable: "Stations",
-                        principalColumn: "StationID");
+                        name: "FK_Robots_Mission_MissionID",
+                        column: x => x.MissionID,
+                        principalTable: "Mission",
+                        principalColumn: "MissionID");
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Mission_LoginID",
+                table: "Mission",
+                column: "LoginID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Objective_MissionID",
+                table: "Objective",
+                column: "MissionID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Robots_LoginID",
@@ -89,9 +149,14 @@ namespace StrongholdsAPI.Migrations
                 column: "LoginID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Robots_StationID",
+                name: "IX_Robots_MissionID",
                 table: "Robots",
-                column: "StationID");
+                column: "MissionID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Stations_LoginID",
+                table: "Stations",
+                column: "LoginID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -100,13 +165,19 @@ namespace StrongholdsAPI.Migrations
                 name: "Locations");
 
             migrationBuilder.DropTable(
+                name: "Objective");
+
+            migrationBuilder.DropTable(
                 name: "Robots");
 
             migrationBuilder.DropTable(
-                name: "Logins");
+                name: "Stations");
 
             migrationBuilder.DropTable(
-                name: "Stations");
+                name: "Mission");
+
+            migrationBuilder.DropTable(
+                name: "Logins");
         }
     }
 }
