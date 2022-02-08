@@ -15,7 +15,7 @@ namespace StrongholdsUtil.Models
         public virtual Login Login { get; set; }
 
         [InverseProperty("Mission")]
-        public virtual List<Objective> Objectives { get; set; }
+        public virtual List<Objective> Objectives { get; set; } = new List<Objective>();
 
     }
 
@@ -30,14 +30,15 @@ namespace StrongholdsUtil.Models
         [System.Text.Json.Serialization.JsonIgnore]
         public virtual Mission Mission { get; set; }
 
-        public float Latitude { get; set; }
-        public float Longitude { get; set; }
+        public float Latitude { get; set; } = 0f;
+        public float Longitude { get; set; } = 0f;
 
-        public Act Action { get; set; }
+        public Act Action { get; set; } = Act.Scan;
     }
 
     public enum Act
     {
+        Go,
         Mine,
         Scan,
         Collect,

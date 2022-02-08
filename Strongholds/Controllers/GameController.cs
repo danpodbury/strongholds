@@ -10,7 +10,7 @@ using StrongholdsUtil.Models;
 
 namespace Strongholds.Controllers
 {
-    [AuthorizeUser]
+    //[AuthorizeUser]
     public class GameController : Controller
     {
         private readonly ILogger<GameController> _logger;
@@ -35,6 +35,31 @@ namespace Strongholds.Controllers
                 MyRobots = robots
             };
             return View(model);
+        }
+
+        public async Task<IActionResult> NewMission(int robotID)
+        {
+            var model = new NewMission
+            {
+                RobotID = robotID,
+                Mission = new Mission()
+                {
+                    Objectives = new List<Objective>(new Objective[10])
+                }
+            };
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> NewMission(NewMission model)
+        {
+            var objs = model.Mission.Objectives;
+            if (!ModelState.IsValid)
+            {
+                return View(nameof(NewMission));
+            }
+
+            return View(nameof(Index));
         }
 
         // Error

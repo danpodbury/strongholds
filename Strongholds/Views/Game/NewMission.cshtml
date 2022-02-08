@@ -1,0 +1,160 @@
+﻿@model Strongholds.ViewModels.NewMission
+@{
+    ViewData["Title"] = "New Mission";
+    int num = 3;
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-10">
+
+        <h1 class="display-6">Mission Objectives</h1>
+       
+         <form asp-action="NewMission">
+
+
+            <div style="display:flex; justify-content:left; " class="row">
+                                     
+                    
+
+                 <div class="col col-md-1">
+
+                     <button style="width:100%" id="addRow" type="button" class="btn btn-primary">Add</button>
+                 </div>
+                 
+                 <div class="col col-md-1">
+
+                      <button id="removeRow" type="button" class="btn btn-danger col">Remove</button>
+                 </div>
+                 
+                 <div class="col col-md-1">
+
+                     <input id="create-button" type="submit" class="btn btn-success"  value="Create Mission" disabled/>
+                 </div>
+                  
+             </div>
+
+             <div id="row-container" class="row" style="margin: 2em 0;">
+                <div class="row" id="label-row">
+                 <div class="col col-md-1">
+                    <label  id="Latitude_l" >Order</label>
+                 </div>
+                 <div class="col col-md-3">
+                    <label  id="Latitude_l" >Latitude</label>
+                 </div>
+
+                 <div class="col col-md-3">
+                    <label  id="Latitude_l" >Longitude</label>
+                 </div>
+                 <div class="col col-md-3">
+                    <label  id="Latitude_l" >Action</label>
+                 </div>
+             
+                
+             </div>
+                 <input type="hidden" id="total" value="0" />
+             </div>
+
+            
+         </form>
+
+
+         <div class="row" style="display:none">
+             <div class="col col-md-3">
+                <label  id="Latitude_l" class="l" asp-for="@Model.Mission.Objectives[0].Latitude">Latitude</label>
+                <input  id="Latitude" class="form-control" asp-for="@Model.Mission.Objectives[0].Latitude"/>
+             </div>
+
+             <div class="col col-md-3">
+                <label  id="Latitude_l" class="l" asp-for="@Model.Mission.Objectives[0].Latitude">Longitude</label>
+                <input  id="Longitude" class="form-control" asp-for="@Model.Mission.Objectives[0].Longitude"/>
+             </div>
+             <div class="col col-md-3">
+                <label  id="Latitude_l" class="l" asp-for="@Model.Mission.Objectives[0].Latitude">Action</label>
+                <select id="Act" class="form-control" asp-for="@Model.Mission.Objectives[0].Action" asp-items="Html.GetEnumSelectList<StrongholdsUtil.Models.Act>()"></select>  
+             </div>
+             
+                
+         </div>
+    </div>
+</div>
+
+
+
+ @section Scripts
+ {
+     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+   
+     <script>
+     // Dynamically add objectives to the form
+     $("#addRow").click(function ()
+     {
+         // Update the row count
+         var rowCount = parseInt($("#total").val());
+         rowCount++;
+         $("#total").val(rowCount);
+
+         if(rowCount > 0){
+             $("#create-button").prop('disabled', false)
+         }
+
+         // Get the Mission.Objective index for this row
+         var objectiveIndex  = (rowCount - 1);
+
+         // Create new objective row
+         var newDiv = document.createElement("div");
+         newDiv.setAttribute("Id", "inputRow-" + objectiveIndex);
+         newDiv.classList.add("row");
+
+         // Add Objective number column
+         var col = document.createElement("div");
+         col.classList.add("col");
+         col.classList.add("col-md-1");
+         col.innerHTML = rowCount ;
+         newDiv.append(col);
+
+         // Clone template fields and add to row
+         var list = ["#Latitude","#Longitude","#Act"]
+         list.forEach(templateName => {
+             // Create field container for label and input
+             var col = document.createElement("div");
+             col.classList.add("col");
+             col.classList.add("col-md-3");
+
+            // Create label
+            //var label = document.createElement("label");
+            //label.innerHTML = templateName.slice(1);
+            //col.append(label);
+
+            // Copy the template
+            var input = $(templateName).clone();
+
+            // Do some trickery to get the appropraite id and name
+            input.attr("Id", "Mission_Objectives_" + objectiveIndex + "__" + templateName.slice(1))
+            input.attr("Name", input.attr("Name").replace(0, objectiveIndex));
+
+            // Chuck it into the row
+            input.appendTo(col);
+            newDiv.append(col);
+
+         });
+
+         // Chuck the new row into the form
+         $('#row-container').append(newDiv);
+     });
+     $(document).on('click', '#removeRow', function ()
+     {
+         // Update the row number
+         var rowCount = parseInt($("#total").val());
+         rowCount--;
+         $("#total").val(rowCount);
+
+         if(rowCount < 1){
+             console.log("aint no more");
+             $("#create-button").prop('disabled', true)
+         }
+
+         // Remove the last objective row from the form
+         $('#row-container').children().last().remove();
+     });
+     </script>
+ }
