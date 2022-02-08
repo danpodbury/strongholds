@@ -1,4 +1,4 @@
-﻿using StrongholdsAPI.Models;
+﻿using StrongholdsUtil.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace StrongholdsAPI.Data

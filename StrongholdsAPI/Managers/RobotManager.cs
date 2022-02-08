@@ -1,6 +1,5 @@
 ﻿using StrongholdsAPI.Data;
-using StrongholdsAPI.Models;
-
+using StrongholdsUtil.Models;
 
 namespace StrongholdsAPI.Managers;
 

@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using StrongholdsAPI.Models;
+using StrongholdsUtil.Models;
 using StrongholdsAPI.Managers;
 
 namespace StrongholdsAPI.Controllers

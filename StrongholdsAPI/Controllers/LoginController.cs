@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using StrongholdsAPI.Models;
+using StrongholdsUtil.Models;
 using StrongholdsAPI.Managers;
 
 using SimpleHashing;
@@ -21,15 +21,15 @@ namespace StrongholdsAPI.Controllers
         }
         
         // 
-        [HttpPost, Route("/SignUp/{username}")]
-        public Object SignUp(string username)
+        [HttpPost, Route("SignUp/{username}")]
+        public Login SignUp(string username)
         {
             // Check if username alread in use
             if (UserExists(username))
             {
-                return new Error
+                return new Login
                 {
-                    ErrorText = "Username has already been taken."
+                    Error = new Error { ErrorText = "Username has already been taken." }
                 };
             }
 

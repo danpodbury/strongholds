@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace StrongholdsAPI.Models
+namespace StrongholdsUtil.Models
 {
     public class Mission
     {
@@ -33,10 +33,10 @@ namespace StrongholdsAPI.Models
         public float Latitude { get; set; }
         public float Longitude { get; set; }
 
-        public Activity Act { get; set; }
+        public Act Action { get; set; }
     }
 
-    public enum Activity
+    public enum Act
     {
         Mine,
         Scan,

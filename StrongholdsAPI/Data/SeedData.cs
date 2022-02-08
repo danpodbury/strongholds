@@ -1,4 +1,4 @@
-using StrongholdsAPI.Models;
+using StrongholdsUtil.Models;
 using SimpleHashing;
 
 namespace StrongholdsAPI.Data

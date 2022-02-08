@@ -1,5 +1,5 @@
 ﻿using StrongholdsAPI.Data;
-using StrongholdsAPI.Models;
+using StrongholdsUtil.Models;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 

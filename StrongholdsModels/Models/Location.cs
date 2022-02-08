@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace StrongholdsAPI.Models
+namespace StrongholdsUtil.Models
 {
     public class Location
     {

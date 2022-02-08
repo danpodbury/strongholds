@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace StrongholdsAPI.Models
+namespace StrongholdsUtil.Models
 {
     public class Error
     {
