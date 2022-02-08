@@ -5,11 +5,61 @@
 
 <div class="row justify-content-center">
     <div class="col-md-10">
-        <div>
-            @foreach(StrongholdsUtil.Models.Robot r in @Model.MyRobots)
-            {
+
+        <div class="accordion" id="accordionFlushExample">
+            
+               @{/* ROBOTS */}
+                <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingOne">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                        Robots
+                      </button>
+                </h2>
+
+                <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                    
+                    @{/* Robot Cards */}
+                    @foreach(StrongholdsUtil.Models.Robot r in @Model.MyRobots)
+                    {
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                            <h5 class="card-title" style= "display:flex; justify-content: space-between;">
+                                @r.Name <a href=#>
+                                <span class="badge bg-primary">Edit</span>
+                                </a>
+                            </h5>
                 
-            }
+                            <p class="card-text">A heafty lil guy</p>
+                            </div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><b>Status:</b> On mission</li>
+                            <li class="list-group-item"><b>Location:</b> (@r.Latitude, @r.Longitude)</li>
+                            <li class="list-group-item"><b>Battery:</b> @r.Battery</li>
+                            <li class="list-group-item"><b>Memory:</b> @r.Memory</li>
+                            <li class="list-group-item"><b>Speed:</b> @r.Speed</li>
+                            </ul>
+                            <div class="card-body">
+                            <a href="#" class="card-link">Send on Mission</a>
+                            <a href="#" class="card-link">Upgrade</a>
+                            </div>
+                        </div>
+                    }
+                </div>
+              </div>
+
+              @{/* STATION */}
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingTwo">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                        Other
+                      </button>
+                </h2>
+
+                <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                        content
+                </div>
+              </div>
+
         </div>
 
     </div>

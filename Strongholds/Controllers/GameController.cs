@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using Newtonsoft.Json;
 
 using Strongholds.Models;
 using Strongholds.ViewModels;
@@ -19,14 +20,20 @@ namespace Strongholds.Controllers
         {
             _logger = logger;
             API = new APIUtils(clientFactory);
+            
         }
 
         public async Task<IActionResult> Index()
         {
-            var result = await API.GetResultFromAsync("/Status/");
+            var token = HttpContext.Session.GetString("token");
+            var result = await API.GetResultFromAsync($"/my/Robots/?token={token}");
+            
+            List<Robot> robots = JsonConvert.DeserializeObject<List<Robot>>(result);
 
-
-            var model = new GameView();
+            var model = new GameView()
+            {
+                MyRobots = robots
+            };
             return View(model);
         }
 
