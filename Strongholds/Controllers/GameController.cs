@@ -1,14 +1,15 @@
 ﻿using System.Text;
 using Microsoft.AspNetCore.Mvc;
-using Strongholds.Models;
-using Strongholds.ViewModels;
-using StrongholdsUtil.Models;
 using System.Diagnostics;
 
-using Strongholds;
+using Strongholds.Models;
+using Strongholds.ViewModels;
+using Strongholds.Filters;
+using StrongholdsUtil.Models;
 
 namespace Strongholds.Controllers
 {
+    [AuthorizeUser]
     public class GameController : Controller
     {
         private readonly ILogger<GameController> _logger;
@@ -35,8 +36,6 @@ namespace Strongholds.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-
-
 
     }
 }
