@@ -14,6 +14,14 @@ builder.Services.AddHttpClient(Options.DefaultName, client =>
     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 });
 
+// Add sessions to client
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+    // Make the session cookie essential.
+    options.Cookie.IsEssential = true;
+});
+
 
 var app = builder.Build();
 
@@ -25,7 +33,7 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-
+app.UseSession();
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

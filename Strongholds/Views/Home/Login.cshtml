@@ -1,0 +1,36 @@
+﻿
+@{
+    ViewData["Title"] = "Login";
+    string token = "";
+    string username = "";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-4">
+        <h1 class="display-3">Login</h1>
+
+            <form asp-action="Login">
+
+                <div class="form-group col-md-12">
+                    <label asp-for="@username">Username</label>
+                    <input class="form-control" asp-for="@username">
+                </div>
+                <div class="form-group col-md-12">
+                    <label asp-for="@token">Token</label>
+                    <input class="form-control" asp-for="@token">
+                </div>
+
+                <div class="form-group col-md-12">
+                    <div class="text-danger" asp-validation-summary="All"></div>
+                </div>
+
+                <div class="form-group" style="margin-top:10px;">
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </div>
+            </form>
+            
+
+    </div>
+</div>
+
+

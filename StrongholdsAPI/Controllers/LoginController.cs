@@ -62,6 +62,21 @@ namespace StrongholdsAPI.Controllers
             return _repo.Get();
         }
 
+        //TODO: rate limit this endpoint as it would be the biggest point of attack
+        [HttpGet, Route("/Login/")]
+        public bool LoginValid(string username, string token)
+        {
+            try
+            {
+                var login = _repo.GetByName(username);
+                return PBKDF2.Verify(login.HashedToken, token);
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
 
         private bool UserExists(string username)
         {

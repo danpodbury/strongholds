@@ -5,11 +5,7 @@
 
 <div class="row justify-content-center">
     <div class="col-md-8">
-        <div class="alert-@Model.Item1">@Model.Item2.ToString()</div>
-
-        @{//<div class="alert-danger">Cannot reach server!</div>
-         }
-
+        <div class="alert-@Model.Item1" style="text-align:center">@Model.Item2.Trim('"')</div>
 
 
         <h1 class="display-3">@ViewData["Title"]</h1>
@@ -33,13 +29,6 @@
 
             The goal is to survive for as long as possible.
         </p>
-
-        <a asp-action="Login">
-           <button class="btn-primary btn">Login</button>
-        </a>
-        <a asp-action="SignUp">
-           <button class="btn-primary btn">SignUp</button>
-        </a>
 
     </div>
 </div>
