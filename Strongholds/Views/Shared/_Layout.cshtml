@@ -25,14 +25,16 @@
                         @if (isLoggedIn)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Game" asp-action="Index">Play</a>
                             </li>
                         }
                     </ul>
                     <ul class="navbar-nav">
 
                         @if(isLoggedIn) {
-
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Home" asp-action="Index">My Account</a>
+                            </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-controller="Home" asp-action="Logout">Logout</a>
                             </li>
