@@ -1,0 +1,17 @@
+﻿@model StrongholdsUtil.Models.Login
+@{
+    ViewData["Title"] = "Sign Up";
+    string username = "";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-4">
+        <h4>Account successfully created</h4>
+         <p><b>username:</b> @Model.Username</p>
+         <p><b>token:</b> @Model.Token</p>
+
+         <p>(You'll need the token to access your account)</p>
+    </div>
+</div>
+
+

@@ -28,18 +28,16 @@ namespace Strongholds.Controllers
 
             return View(nameof(Index), new Tuple<string, string>(classAppearance, result) );
         }
-       
-        
-
-        public async Task<IActionResult> SignUp()
-        {
-            return View();
-        }
-
 
         public async Task<IActionResult> Login()
         {
             return RedirectToAction(nameof(Index));
+        }
+
+
+        public async Task<IActionResult> SignUp()
+        {
+            return View();
         }
 
         [HttpPost]
@@ -53,15 +51,16 @@ namespace Strongholds.Controllers
                 if (postResponse.IsSuccessStatusCode)
                 {
                     var result = await postResponse.Content.ReadAsStringAsync();
-                    JsonConvert.DeserializeObject<Login>(result);
+                    Login l = JsonConvert.DeserializeObject<Login>(result);
 
-                    return RedirectToAction(nameof(Index));
+                    return View("SignUpResult", l);
                 }
  
             }
         
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(SignUp));
         }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
