@@ -34,7 +34,7 @@
                             </div>
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item"><b>ID:</b> @r.RobotID</li>
-                                <li class="list-group-item"><b>Status:</b> Idle</li>
+                                <li class="list-group-item"><b>Status:</b> @r.Status</li>
                                 <li class="list-group-item"><b>Location:</b> (@r.Latitude, @r.Longitude)</li>
                                 <li class="list-group-item"><b>Battery:</b> @r.Battery</li>
                                 <li class="list-group-item"><b>Memory:</b> @r.Memory</li>
@@ -49,16 +49,34 @@
                 </div>
               </div>
 
-              @{/* STATION */}
+              @{/* Missions */}
               <div class="accordion-item">
                 <h2 class="accordion-header" id="flush-headingTwo">
                       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-                        Other
+                        Missions
                       </button>
                 </h2>
 
                 <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
-                        content
+                    <table>
+                        <tr>
+                            <th>ID</th>
+                            <th>RobotID</th>
+                            <th># Objectives</th>
+                        </tr>
+                        @foreach(StrongholdsUtil.Models.Mission m in @Model.MyMissions)
+                        {
+                        <tr>
+                            <td>@m.MissionID</td>
+                            <td>@m.RobotID</td>
+                            <td>@m.Objectives.Count</td>
+                        </tr>
+                        }
+
+
+
+                    </table>
+
                 </div>
               </div>
 

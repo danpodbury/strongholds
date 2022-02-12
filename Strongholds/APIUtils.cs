@@ -17,8 +17,12 @@ namespace Strongholds
         {
             var response = await Client.GetAsync(url);
 
-            if (!response.IsSuccessStatusCode)
-                return "request was not successful";
+            if (!response.IsSuccessStatusCode) 
+            {
+                //throw new Exception(response.StatusCode.ToString());
+                Console.WriteLine(response.StatusCode.ToString());
+                return "request was not successful"; 
+            }
 
             // Deserializing the response received from web api and storing into a list.
             return await response.Content.ReadAsStringAsync();
@@ -50,23 +54,23 @@ namespace Strongholds
             return Client.PostAsync(url, content).Result;
         }
 
-        public async Task<HttpResponseMessage> PostModel(string url, Object model)
-        {
-            // Serialise model
-            //var json = JsonConvert.SerializeObject(model);
-            string json = "{ 'contact_name':'sdfsd'}";
-
-            var data = new StringContent(json, Encoding.UTF8, "application/json");
-
-            // Yeet the data
-            var response= await Client.PostAsync(url, data);
-
-            var status = response.StatusCode;
-
-            string result = response.Content.ReadAsStringAsync().Result;
-            Console.WriteLine(result);
-            return response;
-        }
+        //public async Task<HttpResponseMessage> PostModel(string url, Object model)
+        //{
+        //    // Serialise model
+        //    //var json = JsonConvert.SerializeObject(model);
+        //    string json = "{ 'contact_name':'sdfsd'}";
+        //
+        //    var data = new StringContent(json, Encoding.UTF8, "application/json");
+        //
+        //    // Yeet the data
+        //    var response= await Client.PostAsync(url, data);
+        //
+        //    var status = response.StatusCode;
+        //
+        //    string result = response.Content.ReadAsStringAsync().Result;
+        //    Console.WriteLine(result);
+        //    return response;
+        //}
 
     }
 }

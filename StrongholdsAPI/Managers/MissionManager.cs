@@ -15,12 +15,19 @@ public class MissionManager
 
     public List<Mission> GetMissionsByLoginID(int loginID)
     {
-        return _context.Missions.ToList();
+        var robots = _context.Robots.Where(r => r.LoginID == loginID).ToList();
+        List<int> robotIDs = new List<int>();
+        foreach (var robot in robots)
+        {
+            robotIDs.Add(robot.RobotID);
+        }
+        return _context.Missions.Where(m => robotIDs.Contains(m.RobotID)).ToList();
+       
     }
 
     public List<Mission> GetMissionsByRobotID(int robotID)
     {
-        return _context.Missions.ToList();
+        return _context.Missions.Where(m => m.RobotID == robotID).ToList();
     }
 
     public List<Mission> GetMission(int missionID)
@@ -30,32 +37,9 @@ public class MissionManager
 
     public int AddMission(Mission mission)
     {
-        //Does this work?
         _context.Missions.Add(mission);
         _context.SaveChanges();
         return mission.MissionID;
     }
-
-    public int AddObjective(Objective objective)
-    {
-        var cleanObj = new Objective
-        {
-            MissionID = objective.MissionID,
-            Order = objective.Order,
-            Latitude = objective.Latitude,
-            Longitude = objective.Longitude,
-            Action = objective.Action,
-        };
-        _context.Objectives.Add(objective);
-        _context.SaveChanges();
-        return objective.ObjectiveID;
-    }
-
-    //public void NewMission(Mission mission, string token)
-    //{
-    //    //_context.Missions.Add();
-    //}
-
-
 
 }

@@ -23,8 +23,8 @@ namespace StrongholdsUtil.Models
 
         public RobotStatus Status { get; set; } = Robot.RobotStatus.Idle;
 
-        [InverseProperty("Robot")]
-        public virtual Mission? Mission { get; set; }
+        //[InverseProperty("Robot")]
+        //public virtual Mission? Mission { get; set; }
 
         public void step()
         {

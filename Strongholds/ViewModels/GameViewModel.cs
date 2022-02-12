@@ -7,6 +7,7 @@ namespace Strongholds.ViewModels
         public List<Robot> MyRobots { get; set; }
         public Login MyLogin { get; set; } 
         public List<Station> MyStations { get; set; }
+        public List<Mission> MyMissions { get; set; }
 
     }
 }

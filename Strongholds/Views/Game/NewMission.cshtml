@@ -1,4 +1,4 @@
-﻿@model StrongholdsUtil.Models.NewMission
+﻿@model StrongholdsUtil.Models.Mission
 @{
     ViewData["Title"] = "New Mission";
     int num = 3;
@@ -52,9 +52,11 @@
              </div>
                  <input type="hidden" id="total" value="0" />
              </div>
+             <div style="display:none">
+                <label asp-for="@Model.RobotID"></label>
+                <input asp-for="@Model.RobotID" />
+             </div>
 
-            <label asp-for="@Model.RobotID"></label>
-            <input asp-for="@Model.RobotID" />
 
             <div asp-validation-summary="All" class="text-danger"></div>
          </form>
@@ -62,20 +64,17 @@
 
          <div class="row" style="display:none">
              <div class="col col-md-1">
-                <input  id="Order" readonly class="form-control" asp-for="@Model.Mission.Objectives[0].Order"/>
+                <input  id="Order" readonly class="form-control" asp-for="@Model.Objectives[0].Order"/>
              </div>
              <div class="col col-md-3">
-                @{/*<label  id="Latitude_l" class="l" asp-for="@Model.Mission.Objectives[0].Latitude">Latitude</label>*/}
-                <input  id="Latitude" class="form-control" asp-for="@Model.Mission.Objectives[0].Latitude"/>
+                <input  id="Latitude" class="form-control" asp-for="@Model.Objectives[0].Latitude"/>
              </div>
 
              <div class="col col-md-3">
-                @{/*<label  id="Latitude_l" class="l" asp-for="@Model.Mission.Objectives[0].Latitude">Longitude</label>*/}
-                <input  id="Longitude" class="form-control" asp-for="@Model.Mission.Objectives[0].Longitude"/>
+                <input  id="Longitude" class="form-control" asp-for="@Model.Objectives[0].Longitude"/>
              </div>
              <div class="col col-md-3">
-                @{/*<label  id="Latitude_l" class="l" asp-for="@Model.Mission.Objectives[0].Latitude">Action</label>*/}
-                <select id="Act" class="form-control" asp-for="@Model.Mission.Objectives[0].Action" asp-items="Html.GetEnumSelectList<StrongholdsUtil.Models.Act>()"></select>  
+                <select id="Act" class="form-control" asp-for="@Model.Objectives[0].Action" asp-items="Html.GetEnumSelectList<StrongholdsUtil.Models.Act>()"></select>  
              </div>
          </div>
 
@@ -109,13 +108,6 @@
          newDiv.setAttribute("Id", "inputRow-" + objectiveIndex);
          newDiv.classList.add("row");
 
-         // Add Objective number column
-         //var col = document.createElement("div");
-         //col.classList.add("col");
-         //col.classList.add("col-md-1");
-         //col.innerHTML = rowCount ;
-         //newDiv.append(col);
-
          // Clone template fields and add to row
          var list = ["#Order","#Latitude","#Longitude","#Act"]
          list.forEach(templateName => {
@@ -124,16 +116,11 @@
              col.classList.add("col");
              col.classList.add("col-md-3");
 
-            // Create label
-            //var label = document.createElement("label");
-            //label.innerHTML = templateName.slice(1);
-            //col.append(label);
-
             // Copy the template
             var input = $(templateName).clone();
 
             // Do some trickery to get the appropraite id and name
-            input.attr("Id", "Mission_Objectives_" + objectiveIndex + "__" + templateName.slice(1))
+            input.attr("Id", "Objectives_" + objectiveIndex + "__" + templateName.slice(1))
             input.attr("Name", input.attr("Name").replace(0, objectiveIndex));
 
             if(templateName == "#Order"){

@@ -30,22 +30,25 @@ namespace Strongholds.Controllers
             var loginID = HttpContext.Session.GetInt32("loginID");
 
             //Get user login
-            var result = await API.GetResultFromAsync($"/my/Account/?token={token}&loginID={loginID}");
-            Login login = JsonConvert.DeserializeObject<Login>(result);
+            //var result = await API.GetResultFromAsync($"/my/Account/?token={token}&loginID={loginID}");
+            //Login login = JsonConvert.DeserializeObject<Login>(result);
 
             //Get user robots
-            result = await API.GetResultFromAsync($"/my/Robots/?token={token}");
+            var result = await API.GetResultFromAsync($"/my/Robots/?token={token}");
             List<Robot> robots = JsonConvert.DeserializeObject<List<Robot>>(result);
 
             ////Get user stations
             //result = await API.GetResultFromAsync($"/my/Stations/{id}");
             //List<Station> stations = JsonConvert.DeserializeObject<List<Station>>(result);
 
-
+            //Get user missions
+            var result2 = await API.GetResultFromAsync($"/my/Missions/{loginID}?token={token}");
+            List<Mission> missions= JsonConvert.DeserializeObject<List<Mission>>(result2);
 
             var model = new GameView()
             {
                 MyRobots = robots,
+                MyMissions = missions,
                 //MyStations = stations,
                 //MyLogin = login
             };
@@ -54,37 +57,46 @@ namespace Strongholds.Controllers
 
         public async Task<IActionResult> NewMission(int robotID)
         {
-            //TODO: verifiy user owns this robotID
+            // Verifiy user owns this robotID
             var token = HttpContext.Session.GetString("token");
             var authorized = await API.CanGetSuccessfully($"/my/Robots/{robotID}/?token={token}");
 
             if (!authorized)
             {
                 return Json("That robot does not respond to you.");
+            } else
+            {
+                var result2 = await API.GetResultFromAsync($"/my/Robots/{robotID}/Missions/?token={token}");
+                List<Mission> missions = JsonConvert.DeserializeObject<List<Mission>>(result2);
+
+                if (missions.Count > 0)
+                {
+                    return Json("That robot is already on a mission.");
+                }
             }
 
-            var model = new NewMission
+            var model = new Mission()
             {
                 RobotID = robotID,
-                Mission = new Mission()
-                {
-                    Objectives = new List<Objective>(new Objective[10])
-                }
+                Objectives = new List<Objective>(new Objective[10])
             };
+
             return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> NewMission(NewMission model)
+        public async Task<IActionResult> NewMission(Mission model)
         {
+            // Verifiy user owns this robotID
+            var token = HttpContext.Session.GetString("token");
+            var authorized = await API.CanGetSuccessfully($"/my/Robots/{model.RobotID}/?token={token}");
+            if (!authorized) return Json("That robot does not respond to you.");
+
             // TODO: fix model state validation
             //if (!ModelState.IsValid)
             //{
             //    return View(nameof(NewMission));
             //}
-
-            //TODO: replace NewMission with Mission in params
-            model.Mission.RobotID = model.RobotID;
 
             var content = JsonConvert.SerializeObject(model);
 

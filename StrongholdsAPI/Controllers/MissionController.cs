@@ -19,18 +19,24 @@ namespace StrongholdsAPI.Controllers
 
         // Create a new mission for a Robot
         [HttpPost, Route("/Missions/new/{missionContent}")]
-        public void NewMission(string missionContent)
+        public int NewMission(string missionContent)
         {
-            var mission = JsonConvert.DeserializeObject<NewMission>(missionContent);
-            var n = mission.Mission.Objectives.Count;
+            var mission = JsonConvert.DeserializeObject<Mission>(missionContent);
+            return _repo.AddMission(mission);
+        }
 
-            var missionID = _repo.AddMission(mission.Mission);
+        // Get all the missions belonging to a user's robots
+        [HttpGet, Route("/my/Missions/{loginID}")]
+        public List<Mission> GetUserMissions(int loginID, string token)
+        {
+            return _repo.GetMissionsByLoginID(loginID);
+        }
 
-            //foreach (Objective o in mission.Mission.Objectives)
-            //{
-            //    o.MissionID = missionID;
-            //    _repo.AddObjective(o);
-            //}
+        // Get a robots current mission/pending missions
+        [HttpGet, Route("/my/Robots/{robotID}/Missions/")]
+        public List<Mission> GetRobotMission(int robotID, string token)
+        {
+            return _repo.GetMissionsByRobotID(robotID);
         }
 
     }
