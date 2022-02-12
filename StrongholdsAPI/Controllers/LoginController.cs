@@ -19,7 +19,7 @@ namespace StrongholdsAPI.Controllers
             _repo = repo;
             _stationRepo = repo2;
         }
-        
+
         // 
         [HttpPost, Route("SignUp/{username}")]
         public Login SignUp(string username)
@@ -64,16 +64,22 @@ namespace StrongholdsAPI.Controllers
 
         //TODO: rate limit this endpoint as it would be the biggest point of attack
         [HttpGet, Route("/Login/")]
-        public bool LoginValid(string username, string token)
+        public int LoginValid(string username, string token)
         {
             try
             {
                 var login = _repo.GetByName(username);
-                return PBKDF2.Verify(login.HashedToken, token);
+                if (PBKDF2.Verify(login.HashedToken, token))
+                {
+                    return login.LoginID;
+                } else
+                {
+                    return -1;
+                }
             }
             catch
             {
-                return false;
+                return -1;
             }
         }
 
@@ -82,6 +88,12 @@ namespace StrongholdsAPI.Controllers
         {
             if (_repo.GetByName(username) == null) return false;
             return true;
+        }
+
+        [HttpGet, Route("/my/Account/")]
+        public Login GetUserInfo(string token,int loginID)
+        {
+            return _repo.Get(loginID);
         }
  
     }

@@ -14,13 +14,6 @@ namespace StrongholdsUtil.Models
         [System.Text.Json.Serialization.JsonIgnore]
         public virtual Login Login { get; set; }
 
-
-        //[ForeignKey("Station")]
-        //public int? StationID { get; set; }
-        //[System.Text.Json.Serialization.JsonIgnore]
-        //public virtual Station? Station { get; set; }
-
-
         public string Name { get; set; } = "bot";
         public float Latitude { get; set; } = 0f;
         public float Longitude { get; set; } = 0f;
@@ -28,6 +21,9 @@ namespace StrongholdsUtil.Models
         public int Memory { get; set; } = 8;
         public float Speed { get; set; } = 10f;
 
+        public RobotStatus Status { get; set; } = Robot.RobotStatus.Idle;
+
+        [InverseProperty("Robot")]
         public virtual Mission? Mission { get; set; }
 
         public void step()
@@ -37,6 +33,13 @@ namespace StrongholdsUtil.Models
                 Latitude += 0.001f;
                 Longitude += 0.001f;
             }
+        }
+
+        public enum RobotStatus
+        {
+            Idle,
+            OnMission,
+            Offline
         }
     }
 

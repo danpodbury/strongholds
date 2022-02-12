@@ -17,25 +17,21 @@ namespace StrongholdsAPI.Data
 
             Console.WriteLine("Seeding database");
 
+            context.Logins.Add(
+                new Login
+                {
+                    Username = "admin",
+                    Token = "admin",
+                    HashedToken = PBKDF2.Hash("admin"),
+                }
+            );
+
             var token = Guid.NewGuid().ToString();
 
             context.Logins.Add(
                 new Login
                 {
-                    //LoginID = 1,
-                    Username = "admin",
-                    Token = token,
-                    HashedToken = PBKDF2.Hash(token),
-                }
-            );
-
-            token = Guid.NewGuid().ToString();
-
-            context.Logins.Add(
-                new Login
-                {
-                    //LoginID = 2,
-                    Username = "test",
+                    Username = "dave",
                     Token = token,
                     HashedToken = PBKDF2.Hash(token),
                 }
@@ -50,13 +46,13 @@ namespace StrongholdsAPI.Data
                 },
                 new Robot
                 {
-                    Name = "dave",
+                    Name = "greg",
                     LoginID = 1
                 },
                 new Robot
                 {
                     Name = "casper",
-                    LoginID = 2
+                    LoginID = 1
                 }
             );
 

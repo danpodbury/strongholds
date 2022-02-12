@@ -24,23 +24,25 @@
                         <div class="card" style="width: 18rem;">
                             <div class="card-body">
                             <h5 class="card-title" style= "display:flex; justify-content: space-between;">
-                                @r.Name <a href=#>
-                                <span class="badge bg-primary">Edit</span>
+                                @r.Name 
+                                <a href=#>
+                                    <span class="badge bg-primary">Edit</span>
                                 </a>
                             </h5>
                 
                             <p class="card-text">A heafty lil guy</p>
                             </div>
                             <ul class="list-group list-group-flush">
-                                <li class="list-group-item"><b>Status:</b> On mission</li>
-                            <li class="list-group-item"><b>Location:</b> (@r.Latitude, @r.Longitude)</li>
-                            <li class="list-group-item"><b>Battery:</b> @r.Battery</li>
-                            <li class="list-group-item"><b>Memory:</b> @r.Memory</li>
-                            <li class="list-group-item"><b>Speed:</b> @r.Speed</li>
+                                <li class="list-group-item"><b>ID:</b> @r.RobotID</li>
+                                <li class="list-group-item"><b>Status:</b> Idle</li>
+                                <li class="list-group-item"><b>Location:</b> (@r.Latitude, @r.Longitude)</li>
+                                <li class="list-group-item"><b>Battery:</b> @r.Battery</li>
+                                <li class="list-group-item"><b>Memory:</b> @r.Memory</li>
+                                <li class="list-group-item"><b>Speed:</b> @r.Speed</li>
                             </ul>
                             <div class="card-body">
-                            <a href="#" class="card-link">Send on Mission</a>
-                            <a href="#" class="card-link">Upgrade</a>
+                            <a class="card-link" asp-action="NewMission" asp-route-robotID="@r.RobotID">Send on Mission</a>
+                            <span href="#" class="card-link">Upgrade</span>
                             </div>
                         </div>
                     }

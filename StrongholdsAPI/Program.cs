@@ -25,6 +25,7 @@ builder.Services.AddScoped<RobotManager>();
 builder.Services.AddScoped<LocationManager>();
 builder.Services.AddScoped<LoginManager>();
 builder.Services.AddScoped<StationManager>();
+builder.Services.AddScoped<MissionManager>();
 
 builder.Services.AddControllers();
 

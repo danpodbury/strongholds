@@ -40,15 +40,17 @@ namespace Strongholds.Controllers
         public async Task<IActionResult> Login(string username, string token)
         {
             var result = await API.GetResultFromAsync($"/Login/?username={username}&token={token}");
-            bool loginValid = JsonConvert.DeserializeObject<Boolean>(result);
+            int loginID = JsonConvert.DeserializeObject<Int32>(result);
 
-            if (!loginValid)
+            if (loginID == -1)
             {
                 ModelState.AddModelError("Login", "Login not valid or doesn't exist");
                 return View(nameof(Login));
             }
 
             HttpContext.Session.SetString("token", token);
+            HttpContext.Session.SetString("username", username);
+            HttpContext.Session.SetInt32("loginID", loginID);
 
             ModelState.ClearValidationState("Login");
 
@@ -66,6 +68,7 @@ namespace Strongholds.Controllers
         {
             if (ModelState.IsValid)
             {
+                //TODO: this is potentially vulnerable
                 var response = await API.PostQueryString($"SignUp/{username}", username);
         
                 if (response.IsSuccessStatusCode)
@@ -73,6 +76,12 @@ namespace Strongholds.Controllers
                     var result = await response.Content.ReadAsStringAsync();
 
                     Login l = JsonConvert.DeserializeObject<Login>(result);
+
+                    if (l.Error != null)
+                    {
+                        ModelState.AddModelError("Error", l.Error.ErrorText);
+                        return RedirectToAction(nameof(SignUp), l);
+                    }
 
                     return View("SignUpResult", l);
                 }
@@ -86,7 +95,9 @@ namespace Strongholds.Controllers
         public async Task<IActionResult> Logout()
         {
             HttpContext.Session.Remove("token");
-            return View(nameof(Index));
+            HttpContext.Session.Remove("username");
+            HttpContext.Session.Remove("loginID");
+            return RedirectToAction(nameof(Index));
         }
 
         // Error

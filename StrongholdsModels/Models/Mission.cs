@@ -8,15 +8,18 @@ namespace StrongholdsUtil.Models
         [Key]
         public int MissionID { get; set; }
 
-        [ForeignKey("Login")]
-        public int LoginID { get; set; }
-
-        [System.Text.Json.Serialization.JsonIgnore]
-        public virtual Login Login { get; set; }
+        //[ForeignKey("Login")]
+        //public int LoginID { get; set; }
+        //
+        //[System.Text.Json.Serialization.JsonIgnore]
+        //public virtual Login Login { get; set; }
 
         [InverseProperty("Mission")]
         public virtual List<Objective> Objectives { get; set; } = new List<Objective>();
 
+        [ForeignKey("Robot")]
+        public int RobotID { get; set; }
+        public virtual Robot Robot { get; set; }
     }
 
     public class Objective
@@ -26,6 +29,7 @@ namespace StrongholdsUtil.Models
 
         [ForeignKey("Mission")]
         public int MissionID { get; set; }
+        public int Order { get; set; }
 
         [System.Text.Json.Serialization.JsonIgnore]
         public virtual Mission Mission { get; set; }

@@ -1,4 +1,4 @@
-﻿@model Strongholds.ViewModels.NewMission
+﻿@model StrongholdsUtil.Models.NewMission
 @{
     ViewData["Title"] = "New Mission";
     int num = 3;
@@ -35,18 +35,17 @@
 
              <div id="row-container" class="row" style="margin: 2em 0;">
                 <div class="row" id="label-row">
-                 <div class="col col-md-1">
-                    <label  id="Latitude_l" >Order</label>
+                 <div class="col col-md-3">
+                    <label> Order </label>
                  </div>
                  <div class="col col-md-3">
-                    <label  id="Latitude_l" >Latitude</label>
-                 </div>
-
-                 <div class="col col-md-3">
-                    <label  id="Latitude_l" >Longitude</label>
+                    <label> Latitude </label>
                  </div>
                  <div class="col col-md-3">
-                    <label  id="Latitude_l" >Action</label>
+                    <label> Longitude </label>
+                 </div>
+                 <div class="col col-md-3">
+                    <label> Action </label>
                  </div>
              
                 
@@ -54,27 +53,32 @@
                  <input type="hidden" id="total" value="0" />
              </div>
 
-            
+            <label asp-for="@Model.RobotID"></label>
+            <input asp-for="@Model.RobotID" />
+
+            <div asp-validation-summary="All" class="text-danger"></div>
          </form>
 
 
          <div class="row" style="display:none">
+             <div class="col col-md-1">
+                <input  id="Order" readonly class="form-control" asp-for="@Model.Mission.Objectives[0].Order"/>
+             </div>
              <div class="col col-md-3">
-                <label  id="Latitude_l" class="l" asp-for="@Model.Mission.Objectives[0].Latitude">Latitude</label>
+                @{/*<label  id="Latitude_l" class="l" asp-for="@Model.Mission.Objectives[0].Latitude">Latitude</label>*/}
                 <input  id="Latitude" class="form-control" asp-for="@Model.Mission.Objectives[0].Latitude"/>
              </div>
 
              <div class="col col-md-3">
-                <label  id="Latitude_l" class="l" asp-for="@Model.Mission.Objectives[0].Latitude">Longitude</label>
+                @{/*<label  id="Latitude_l" class="l" asp-for="@Model.Mission.Objectives[0].Latitude">Longitude</label>*/}
                 <input  id="Longitude" class="form-control" asp-for="@Model.Mission.Objectives[0].Longitude"/>
              </div>
              <div class="col col-md-3">
-                <label  id="Latitude_l" class="l" asp-for="@Model.Mission.Objectives[0].Latitude">Action</label>
+                @{/*<label  id="Latitude_l" class="l" asp-for="@Model.Mission.Objectives[0].Latitude">Action</label>*/}
                 <select id="Act" class="form-control" asp-for="@Model.Mission.Objectives[0].Action" asp-items="Html.GetEnumSelectList<StrongholdsUtil.Models.Act>()"></select>  
              </div>
-             
-                
          </div>
+
     </div>
 </div>
 
@@ -106,14 +110,14 @@
          newDiv.classList.add("row");
 
          // Add Objective number column
-         var col = document.createElement("div");
-         col.classList.add("col");
-         col.classList.add("col-md-1");
-         col.innerHTML = rowCount ;
-         newDiv.append(col);
+         //var col = document.createElement("div");
+         //col.classList.add("col");
+         //col.classList.add("col-md-1");
+         //col.innerHTML = rowCount ;
+         //newDiv.append(col);
 
          // Clone template fields and add to row
-         var list = ["#Latitude","#Longitude","#Act"]
+         var list = ["#Order","#Latitude","#Longitude","#Act"]
          list.forEach(templateName => {
              // Create field container for label and input
              var col = document.createElement("div");
@@ -131,6 +135,10 @@
             // Do some trickery to get the appropraite id and name
             input.attr("Id", "Mission_Objectives_" + objectiveIndex + "__" + templateName.slice(1))
             input.attr("Name", input.attr("Name").replace(0, objectiveIndex));
+
+            if(templateName == "#Order"){
+                input.attr("value", rowCount)
+            }
 
             // Chuck it into the row
             input.appendTo(col);

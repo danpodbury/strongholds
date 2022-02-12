@@ -1,6 +1,6 @@
 ﻿using StrongholdsAPI.Data;
 using StrongholdsUtil.Models;
-
+using SimpleHashing;
 
 namespace StrongholdsAPI.Managers;
 
@@ -24,6 +24,7 @@ public class LoginManager
     {
         return _context.Logins.Find(id);
     }
+
 
     // Get by name
     public Login? GetByName(string name)

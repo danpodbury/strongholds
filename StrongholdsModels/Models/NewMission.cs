@@ -1,6 +1,4 @@
-﻿using StrongholdsUtil.Models;
-
-namespace Strongholds.ViewModels
+﻿namespace StrongholdsUtil.Models
 {
     public class NewMission
     {

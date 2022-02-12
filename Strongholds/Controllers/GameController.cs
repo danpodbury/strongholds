@@ -26,19 +26,43 @@ namespace Strongholds.Controllers
         public async Task<IActionResult> Index()
         {
             var token = HttpContext.Session.GetString("token");
-            var result = await API.GetResultFromAsync($"/my/Robots/?token={token}");
-            
+            var name = HttpContext.Session.GetString("username");
+            var loginID = HttpContext.Session.GetInt32("loginID");
+
+            //Get user login
+            var result = await API.GetResultFromAsync($"/my/Account/?token={token}&loginID={loginID}");
+            Login login = JsonConvert.DeserializeObject<Login>(result);
+
+            //Get user robots
+            result = await API.GetResultFromAsync($"/my/Robots/?token={token}");
             List<Robot> robots = JsonConvert.DeserializeObject<List<Robot>>(result);
+
+            ////Get user stations
+            //result = await API.GetResultFromAsync($"/my/Stations/{id}");
+            //List<Station> stations = JsonConvert.DeserializeObject<List<Station>>(result);
+
+
 
             var model = new GameView()
             {
-                MyRobots = robots
+                MyRobots = robots,
+                //MyStations = stations,
+                //MyLogin = login
             };
             return View(model);
         }
 
         public async Task<IActionResult> NewMission(int robotID)
         {
+            //TODO: verifiy user owns this robotID
+            var token = HttpContext.Session.GetString("token");
+            var authorized = await API.CanGetSuccessfully($"/my/Robots/{robotID}/?token={token}");
+
+            if (!authorized)
+            {
+                return Json("That robot does not respond to you.");
+            }
+
             var model = new NewMission
             {
                 RobotID = robotID,
@@ -53,13 +77,21 @@ namespace Strongholds.Controllers
         [HttpPost]
         public async Task<IActionResult> NewMission(NewMission model)
         {
-            var objs = model.Mission.Objectives;
-            if (!ModelState.IsValid)
-            {
-                return View(nameof(NewMission));
-            }
+            // TODO: fix model state validation
+            //if (!ModelState.IsValid)
+            //{
+            //    return View(nameof(NewMission));
+            //}
 
-            return View(nameof(Index));
+            //TODO: replace NewMission with Mission in params
+            model.Mission.RobotID = model.RobotID;
+
+            var content = JsonConvert.SerializeObject(model);
+
+            // Send post to API
+            var response = await API.PostQueryString($"/Missions/new/{content}", content);
+
+            return RedirectToAction(nameof(Index));
         }
 
         // Error

@@ -1,4 +1,8 @@
-﻿namespace Strongholds
+﻿using Newtonsoft.Json;
+using System.Text;
+using System.Net;
+
+namespace Strongholds
 {
     public class APIUtils
     {
@@ -30,15 +34,38 @@
             {
                 return failureString;
             }
-
         }
 
-        public async Task<HttpResponseMessage> PostQueryString(string url, string username)
+        public async Task<bool> CanGetSuccessfully(string url)
+        {
+            var response = await Client.GetAsync(url);
+            return response.IsSuccessStatusCode;
+        }
+
+        public async Task<HttpResponseMessage> PostQueryString(string url, string property)
         {
             //TODO: does the API endpoint get the username from url or content?
-            StringContent content = new StringContent(nameof(username) + "=" + username);
+            StringContent content = new StringContent(nameof(property) + "=" + property);
 
             return Client.PostAsync(url, content).Result;
+        }
+
+        public async Task<HttpResponseMessage> PostModel(string url, Object model)
+        {
+            // Serialise model
+            //var json = JsonConvert.SerializeObject(model);
+            string json = "{ 'contact_name':'sdfsd'}";
+
+            var data = new StringContent(json, Encoding.UTF8, "application/json");
+
+            // Yeet the data
+            var response= await Client.PostAsync(url, data);
+
+            var status = response.StatusCode;
+
+            string result = response.Content.ReadAsStringAsync().Result;
+            Console.WriteLine(result);
+            return response;
         }
 
     }
