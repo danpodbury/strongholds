@@ -1,56 +1,67 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace StrongholdsAPI.Migrations
 {
-    public partial class freshStart : Migration
+    public partial class mySQL : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.AlterDatabase()
+                .Annotation("MySql:CharSet", "utf8mb4");
+
             migrationBuilder.CreateTable(
                 name: "Locations",
                 columns: table => new
                 {
                     LocationID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    latitude = table.Column<float>(type: "real", nullable: false),
-                    longitude = table.Column<float>(type: "real", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    latitude = table.Column<float>(type: "float", nullable: false),
+                    longitude = table.Column<float>(type: "float", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Locations", x => x.LocationID);
-                });
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
                 name: "Logins",
                 columns: table => new
                 {
                     LoginID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Username = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    HashedToken = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Token = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Username = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    HashedToken = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Token = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Logins", x => x.LoginID);
-                });
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
                 name: "Robots",
                 columns: table => new
                 {
                     RobotID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     LoginID = table.Column<int>(type: "int", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Latitude = table.Column<float>(type: "real", nullable: false),
-                    Longitude = table.Column<float>(type: "real", nullable: false),
-                    Battery = table.Column<float>(type: "real", nullable: false),
+                    Name = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Latitude = table.Column<float>(type: "float", nullable: false),
+                    Longitude = table.Column<float>(type: "float", nullable: false),
+                    Battery = table.Column<float>(type: "float", nullable: false),
                     Memory = table.Column<int>(type: "int", nullable: false),
-                    Speed = table.Column<float>(type: "real", nullable: false),
+                    Speed = table.Column<float>(type: "float", nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -62,19 +73,20 @@ namespace StrongholdsAPI.Migrations
                         principalTable: "Logins",
                         principalColumn: "LoginID",
                         onDelete: ReferentialAction.Cascade);
-                });
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
                 name: "Stations",
                 columns: table => new
                 {
                     StationID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     LoginID = table.Column<int>(type: "int", nullable: false),
-                    Oxygen = table.Column<float>(type: "real", nullable: false),
-                    Power = table.Column<float>(type: "real", nullable: false),
-                    latitude = table.Column<float>(type: "real", nullable: false),
-                    longitude = table.Column<float>(type: "real", nullable: false)
+                    Oxygen = table.Column<float>(type: "float", nullable: false),
+                    Power = table.Column<float>(type: "float", nullable: false),
+                    latitude = table.Column<float>(type: "float", nullable: false),
+                    longitude = table.Column<float>(type: "float", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -85,14 +97,15 @@ namespace StrongholdsAPI.Migrations
                         principalTable: "Logins",
                         principalColumn: "LoginID",
                         onDelete: ReferentialAction.Cascade);
-                });
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
                 name: "Missions",
                 columns: table => new
                 {
                     MissionID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     RobotID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -104,18 +117,19 @@ namespace StrongholdsAPI.Migrations
                         principalTable: "Robots",
                         principalColumn: "RobotID",
                         onDelete: ReferentialAction.Cascade);
-                });
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
                 name: "Objectives",
                 columns: table => new
                 {
                     ObjectiveID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     MissionID = table.Column<int>(type: "int", nullable: false),
                     Order = table.Column<int>(type: "int", nullable: false),
-                    Latitude = table.Column<float>(type: "real", nullable: false),
-                    Longitude = table.Column<float>(type: "real", nullable: false),
+                    Latitude = table.Column<float>(type: "float", nullable: false),
+                    Longitude = table.Column<float>(type: "float", nullable: false),
                     Action = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -127,7 +141,8 @@ namespace StrongholdsAPI.Migrations
                         principalTable: "Missions",
                         principalColumn: "MissionID",
                         onDelete: ReferentialAction.Cascade);
-                });
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Missions_RobotID",

@@ -20,6 +20,7 @@ namespace StrongholdsAPI.Data
             context.Logins.Add(
                 new Login
                 {
+                    // Not for use in production. Obviously
                     Username = "admin",
                     Token = "admin",
                     HashedToken = PBKDF2.Hash("admin"),

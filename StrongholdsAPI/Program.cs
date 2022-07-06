@@ -5,15 +5,16 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using System.Net.Http.Headers;
 using Microsoft.EntityFrameworkCore.InMemory;
+using Pomelo.EntityFrameworkCore.MySql;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddDbContext<StrongholdsContext>(options =>
 {
-        //options.UseInMemoryDatabase("Main");
-        options.UseSqlServer(builder.Configuration.GetConnectionString("StrongholdsContext"));
-        options.UseLazyLoadingProxies();
+    string mySqlConnectionStr = builder.Configuration["ConnectionStrings:StrongholdsContext"];
+    options.UseMySql(mySqlConnectionStr, ServerVersion.AutoDetect(mySqlConnectionStr));
+    options.UseLazyLoadingProxies();
 });
 
 // Store session into Web-Server memory.
