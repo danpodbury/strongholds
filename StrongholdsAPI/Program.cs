@@ -2,12 +2,12 @@ using StrongholdsAPI.Data;
 using StrongholdsAPI.Managers;
 using StrongholdsAPI.Services;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
-using System.Net.Http.Headers;
-using Microsoft.EntityFrameworkCore.InMemory;
-using Pomelo.EntityFrameworkCore.MySql;
+using Microsoft.AspNetCore.HttpOverrides;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Override configuration on prod
+builder.Configuration.AddEnvironmentVariables();
 
 // Add services to the container.
 builder.Services.AddDbContext<StrongholdsContext>(options =>
@@ -16,6 +16,8 @@ builder.Services.AddDbContext<StrongholdsContext>(options =>
     options.UseMySql(mySqlConnectionStr, ServerVersion.AutoDetect(mySqlConnectionStr));
     options.UseLazyLoadingProxies();
 });
+
+
 
 // Store session into Web-Server memory.
 builder.Services.AddDistributedMemoryCache();
@@ -38,6 +40,12 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddHostedService<GameService>();
 
 var app = builder.Build();
+
+// Forward headers from reverse-proxy Apache server
+app.UseForwardedHeaders(new ForwardedHeadersOptions
+{
+    ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+});
 
 // Run startup tasks that require scoped services
 using (var scope = app.Services.CreateScope())
