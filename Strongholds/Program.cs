@@ -7,10 +7,13 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+// Override configuration on prod
+builder.Configuration.AddEnvironmentVariables();
+
 // Configure the default client.
 builder.Services.AddHttpClient(Options.DefaultName, client =>
 {
-    client.BaseAddress = new Uri("https://localhost:5200/");
+    client.BaseAddress = new Uri(builder.Configuration["API_address"]);
     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 });
 
