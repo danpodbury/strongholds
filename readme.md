@@ -1,4 +1,6 @@
 # Strongholds
+![Deploy API](https://github.com/danpodbury/strongholds/actions/workflows/deployAPI.yml/badge.svg)
+![Deploy Client](https://github.com/danpodbury/strongholds/actions/workflows/deployClient.yml/badge.svg)
 ## Summary
 Strongholds is a web-based autonomous multiplayer game, accessed through a RESTful API. 
 
