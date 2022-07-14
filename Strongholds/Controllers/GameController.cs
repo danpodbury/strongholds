@@ -10,7 +10,7 @@ using StrongholdsUtil.Models;
 
 namespace Strongholds.Controllers
 {
-    //[AuthorizeUser]
+    [AuthorizeUser]
     public class GameController : Controller
     {
         private readonly ILogger<GameController> _logger;
