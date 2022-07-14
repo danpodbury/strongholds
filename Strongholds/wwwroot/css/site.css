@@ -9,10 +9,84 @@ html {
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
+    /*background-color: #242525 !important;*/
+    background-color: rgb(39, 40, 40) !important;
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    color: rgb(196, 189, 178) !important;
+    /*background-color: #242525 !important;*/
+    background-color: rgb(39, 40, 40) !important;
+}
+
+.alert-success {
+    background-color: rgb(60 94 79);
+    color: rgb(201, 194, 183);
+    border-color: rgb(59, 92, 75);
+}
+
+.text-muted {
+    color: rgb(159, 151, 136) !important;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: rgb(207 201 191) !important;
+}
+
+.accordion-item {
+    background-color: #242525;
+    border: 1px solid rgba(143, 132, 117, 0.13);
+}
+
+.accordion {
+    background-color: #242525;
+}
+
+.accordion-button {
+    color: rgb(207, 201, 191);
+    background-color: rgb(36, 37, 37);
+    border-color: initial;
+}
+
+.accordion-button:not(.collapsed) {
+    color: rgb(88, 158, 223);
+    background-color: rgb(42, 43, 44);
+    box-shadow: rgb(13 13 13 / 13%) 0px -1px 0px inset;
+}
+
+.card {
+    background-color: rgb(36, 37, 37);
+    border-color: rgba(143, 132, 117, 0.13);
+}
+
+.form-control {
+    color: rgb(207, 201, 191);
+    background-color: rgb(36, 37, 37);
+    border-color: rgb(70, 73, 73);
+}
+
+.list-group-item {
+    color: rgb(207, 201, 191);
+    text-decoration-color: initial;
+    background-color: rgb(36, 37, 37);
+    border-color: rgba(143, 132, 117, 0.13);
+}
+
+.validation-summary-errors ul {
+    padding-left: 0px;
+}
+
+.validation-summary-errors ul li {
+    list-style: none;
+}
+
+.navbar-brand {
+    color: rgb(207, 201, 191) !important;
+}
+
+.navbar {
+    border-bottom-color: rgb(66, 69, 69) !important;
 }
