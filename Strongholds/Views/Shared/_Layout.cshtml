@@ -11,8 +11,8 @@
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Strongholds</a>
+            <div class="container container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Strongholds <span class="text-muted">Demo Client</span></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -53,6 +53,7 @@
             </div>
         </nav>
     </header>
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
@@ -61,7 +62,7 @@
 
     <footer class="border-top footer text-muted" style="border-top-color: rgb(66, 69, 69) !important">
         <div class="container">
-            &copy; 2022 - Strongholds - Dan Podbury
+            &copy; 2022 - Strongholds - <a href="https://github.com/danpodbury/strongholds">Dan Podbury</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

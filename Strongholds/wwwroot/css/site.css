@@ -90,3 +90,12 @@ body {
 .navbar {
     border-bottom-color: rgb(66, 69, 69) !important;
 }
+
+a {
+    color: #c58628;
+}
+
+footer a {
+    text-decoration: none;
+    color: #c58628 !important;
+}
