@@ -10,8 +10,7 @@ public class GameService : BackgroundService
     private readonly IServiceProvider _services;
     private readonly ILogger<GameService> _logger;
        
-    private const int tickFrequency = 10;               // time between ticks
-    private const int tickRate = 60 / tickFrequency;    // updates per min    
+    public const int tickPeriod = 10;               // time between ticks
 
     private int totalTicks = 0;
     private DateTime serverStartTime = DateTime.Now;
@@ -38,7 +37,7 @@ public class GameService : BackgroundService
             var loopLength = (DateTime.Now - tickstart).TotalMilliseconds;
             _logger.LogInformation($"Gameloop took {loopLength} milliseconds.");
 
-            var delay = Math.Max(0, ((tickFrequency * 1000) - loopLength));
+            var delay = Math.Max(0, ((tickPeriod * 1000) - loopLength));
 
             // Delay
             _logger.LogInformation($"waiting  {delay} milliseconds before next loop");
@@ -62,10 +61,10 @@ public class GameService : BackgroundService
 
         using (var scope = _services.CreateScope()) { 
             var context = scope.ServiceProvider.GetService<StrongholdsContext>();
-
-            foreach (Robot r in context.Robots)
+            var missions = context.Missions.ToList();
+            foreach (Mission m in missions)
             {
-                r.step();
+                m.Robot.step(m);
             }
 
             context.SaveChanges();

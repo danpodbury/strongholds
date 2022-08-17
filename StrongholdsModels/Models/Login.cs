@@ -9,7 +9,7 @@ namespace StrongholdsUtil.Models
         public int LoginID { get; set; }
 
         public string Username { get; set; }
-        
+
         public string HashedToken { get; set; }
 
         // [NotMapped]

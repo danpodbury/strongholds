@@ -12,12 +12,11 @@ builder.Configuration.AddEnvironmentVariables();
 // Add services to the container.
 builder.Services.AddDbContext<StrongholdsContext>(options =>
 {
+    //options.EnableSensitiveDataLogging();
     string mySqlConnectionStr = builder.Configuration["ConnectionStrings:StrongholdsContext"];
     options.UseMySql(mySqlConnectionStr, ServerVersion.AutoDetect(mySqlConnectionStr));
     options.UseLazyLoadingProxies();
 });
-
-
 
 // Store session into Web-Server memory.
 builder.Services.AddDistributedMemoryCache();
