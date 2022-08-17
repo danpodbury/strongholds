@@ -11,8 +11,8 @@ The client and server are both built using ASP.NET.
 The API uses Entity Framework Core to define the DB schema using a code-first approach.
 
 ## How To Play
-- The a demo client can be accessed [here]()
-- [API reference]() can be used to create your own front-end
+- The a demo client can be accessed [here](https://strongholds.online)
+- [API reference](https://api.strongholds.online) can be used to create your own front-end
 
 ## Mood
 You find yourself stranded inside a 'station' on the surface of a distant planet. 
