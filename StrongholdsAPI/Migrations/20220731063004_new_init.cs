@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace StrongholdsAPI.Migrations
 {
-    public partial class mySQL : Migration
+    public partial class new_init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

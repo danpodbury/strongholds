@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StrongholdsAPI", "Stronghol
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Strongholds", "Strongholds\Strongholds.csproj", "{B33B9A7B-7238-43F8-AA7C-378493350133}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StrongholdsUtil", "StrongholdsModels\StrongholdsUtil.csproj", "{F2522D45-6962-4CCC-84E0-837811C05E4C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StrongholdsUtil", "StrongholdsModels\StrongholdsUtil.csproj", "{F2522D45-6962-4CCC-84E0-837811C05E4C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

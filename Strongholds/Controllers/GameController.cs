@@ -10,7 +10,7 @@ using StrongholdsUtil.Models;
 
 namespace Strongholds.Controllers
 {
-    //[AuthorizeUser]
+    [AuthorizeUser]
     public class GameController : Controller
     {
         private readonly ILogger<GameController> _logger;
@@ -68,6 +68,8 @@ namespace Strongholds.Controllers
             {
                 var result2 = await API.GetResultFromAsync($"/my/Robots/{robotID}/Missions/?token={token}");
                 List<Mission> missions = JsonConvert.DeserializeObject<List<Mission>>(result2);
+                //List<Mission> missions = JsonConvert.DeserializeObject<List<Mission>>(result2,
+                //    new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.Objects });
 
                 if (missions.Count > 0)
                 {
@@ -91,6 +93,7 @@ namespace Strongholds.Controllers
             var token = HttpContext.Session.GetString("token");
             var authorized = await API.CanGetSuccessfully($"/my/Robots/{model.RobotID}/?token={token}");
             if (!authorized) return Json("That robot does not respond to you.");
+            //TODO: do this API side
 
             // TODO: fix model state validation
             //if (!ModelState.IsValid)
