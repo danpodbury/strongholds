@@ -8,16 +8,16 @@
 
         <div class="accordion" id="accordionFlushExample">
             
-               @{/* ROBOTS */}
-                <div class="accordion-item">
+            @{/* ROBOTS */}
+            <div class="accordion-item">
                 <h2 class="accordion-header" id="flush-headingOne">
                       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
                         Robots
                       </button>
                 </h2>
 
-                <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-                    
+                <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample" >
+                    <div style="display:flex;flex-wrap:wrap;">
                     @{/* Robot Cards */}
                     @foreach(StrongholdsUtil.Models.Robot r in @Model.MyRobots)
                     {
@@ -46,39 +46,39 @@
                             </div>
                         </div>
                     }
+                    </div>
                 </div>
-              </div>
+            </div>
 
-              @{/* Missions */}
-              <div class="accordion-item">
+            @{/* Missions */}
+            <div class="accordion-item">
                 <h2 class="accordion-header" id="flush-headingTwo">
-                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-                        Missions
-                      </button>
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                    Missions
+                    </button>
                 </h2>
-
-                <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
-                    <table>
-                        <tr>
-                            <th>ID</th>
-                            <th>RobotID</th>
-                            <th># Objectives</th>
-                        </tr>
-                        @foreach(StrongholdsUtil.Models.Mission m in @Model.MyMissions)
-                        {
-                        <tr>
-                            <td>@m.MissionID</td>
-                            <td>@m.RobotID</td>
-                            <td>@m.Objectives.Count</td>
-                        </tr>
-                        }
-
-
-
-                    </table>
-
+            </div>
+            <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                <div style="display:flex;flex-wrap:wrap;">
+                @{/* Mission Cards */}
+                @foreach(StrongholdsUtil.Models.Mission m in @Model.MyMissions)
+                {
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-body">
+                        <h5 class="card-title" style= "display:flex; justify-content: space-between;">
+                            @m.Robot.Name 
+                        </h5>
+                    
+                        <p class="card-text">On a dangerous mission...</p>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><b>Objective:</b> @m.Objectives[0].Action (@m.Objectives[0].Latitude, @m.Objectives[0].Longitude)</li>
+                            <li class="list-group-item"><b>Current Location:</b> (@m.Robot.Latitude, @m.Robot.Longitude)</li>
+                        </ul>
+                    </div>
+                }
                 </div>
-              </div>
+            </div>
 
         </div>
 
