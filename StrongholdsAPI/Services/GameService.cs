@@ -64,6 +64,7 @@ public class GameService : BackgroundService
             var missions = context.Missions.ToList();
             foreach (Mission m in missions)
             {
+
                 // move robot to next objective
                 m.Robot.step(m);
 
@@ -73,6 +74,7 @@ public class GameService : BackgroundService
                     //context.Missions.Where(i => i.RobotID == m.RobID).ToList();
                     context.Missions.Remove(context.Missions.Where(i => i.RobotID == m.RobotID).ToList()[0]);
                 }
+
             }
 
             // Push changes to DB

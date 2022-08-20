@@ -65,6 +65,7 @@ namespace StrongholdsUtil.Models
                         Longitude += vec_x * Speed * 0.1f * 10f;
                         Latitude  += vec_y * Speed * 0.1f * 10f;
 
+
                         Battery -= 0.1f;
                     }
 
