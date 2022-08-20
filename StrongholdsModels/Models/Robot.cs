@@ -62,8 +62,8 @@ namespace StrongholdsUtil.Models
                         vec_y = (mag != 0f) ? vec_y / mag : 0f;
 
                         // Move toward next objective
-                        Latitude  += vec_y * Speed * 0.1f;
-                        Longitude += vec_x * Speed * 0.1f;
+                        Longitude += vec_x * Speed * 0.1f * 10f;
+                        Latitude  += vec_y * Speed * 0.1f * 10f;
 
                         Battery -= 0.1f;
                     }

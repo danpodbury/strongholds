@@ -72,7 +72,11 @@
                         <p class="card-text">On a dangerous mission...</p>
                         </div>
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item"><b>Objective:</b> @m.Objectives[0].Action (@m.Objectives[0].Latitude, @m.Objectives[0].Longitude)</li>
+                                @{if (m.Objectives.Count > 0){
+                                    <li class="list-group-item"><b>Objective:</b> @m.Objectives[0].Action (@m.Objectives[0].Latitude, @m.Objectives[0].Longitude)</li>
+                                }
+                                }
+                                
                             <li class="list-group-item"><b>Current Location:</b> (@m.Robot.Latitude, @m.Robot.Longitude)</li>
                         </ul>
                     </div>
