@@ -38,6 +38,10 @@ public class MissionManager
     public int AddMission(Mission mission)
     {
         _context.Missions.Add(mission);
+
+        Robot bot = _context.Robots.Where(r => r.RobotID == mission.RobotID).ToList().First();
+        bot.Status = Robot.RobotStatus.OnMission;
+
         _context.SaveChanges();
         return mission.MissionID;
     }

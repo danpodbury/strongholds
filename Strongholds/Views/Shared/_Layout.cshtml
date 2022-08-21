@@ -10,9 +10,9 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Strongholds</a>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3">
+            <div class="container container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Strongholds <span class="text-muted">Demo Client</span></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -29,16 +29,12 @@
                             </li>
                         }
                         
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Game" asp-action="NewMission">New Mission</a>
-                            </li>
-                        
                     </ul>
                     <ul class="navbar-nav">
 
                         @if(isLoggedIn) {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Home" asp-action="Index">My Account</a>
+                                <div class="nav-link text-dark">Logged in as <b>@Context.Session.GetString("username")</b></div>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-controller="Home" asp-action="Logout">Logout</a>
@@ -46,10 +42,10 @@
                         } else
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Home" asp-action="Login">Login</a>
+                                <a class="nav-link" asp-controller="Home" asp-action="Login">Login</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Home" asp-action="SignUp">Sign Up</a>
+                                <a class="nav-link" asp-controller="Home" asp-action="SignUp">Sign Up</a>
                             </li>
                         }
                     </ul>
@@ -57,15 +53,16 @@
             </div>
         </nav>
     </header>
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="border-top footer text-muted" style="border-top-color: rgb(66, 69, 69) !important">
         <div class="container">
-            &copy; 2022 - Strongholds
+            &copy; 2022 - Strongholds - <a href="https://github.com/danpodbury/strongholds">Dan Podbury</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

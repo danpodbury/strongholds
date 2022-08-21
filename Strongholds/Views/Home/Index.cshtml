@@ -1,35 +1,55 @@
 ﻿@model Tuple<string, string>
 @{
-    ViewData["Title"] = "Design Doc";
+    ViewData["Title"] = "";
 }
 
-<div class="row justify-content-center">
+<div class="alert-@Model.Item1" style="text-align:center">@Model.Item2.Trim('"')</div>
+<div class="row">
     <div class="col-md-8">
-        <div class="alert-@Model.Item1" style="text-align:center">@Model.Item2.Trim('"')</div>
+        <!--<div class="alert-@Model.Item1" style="text-align:center">@Model.Item2.Trim('"')</div>-->
 
+        <h1 class="display-6">Welcome</h1>
+        <p> 
+            Strongholds is a web-based autonomous multiplayer game, accessed through a RESTful API.<br>
 
-        <h1 class="display-3">@ViewData["Title"]</h1>
-
-        <h1 class="display-6">Summary</h1>
-        <p> Strongholds is a web based multiply autonomous game.
-            Players configure robots to venture out into the waste to collect resources.
-            All the game state will be stored in a DB that users access through an api
-            I will write a basic api but players can configure the robots to react to certain triggers
-
+            The game can be played through this demo client, 
+            or by interacting directly with the API at 
+            <a href="https://api.strongholds.online">api.strongholds.online</a>.<br>
+            <br>
+            <b>Disclaimer</b><br />
+            The game is in early stages of development, and does not represent the final product.<br>
+            Any current features are liable to change and the database will periodically reset.<br>
+            <br>
+            While security is a priority, this game is <a href="">open source</a> 
+            and potentially vulnerable to data breaches during development.<br>
+            Therefore it is advised not to store any sensitive information, 
+            until such a time it's security can be guarenteed.<br>
+            <br>
         </p>
 
-        <h1 class="display-6">Gameplay loop</h1>
-        <p> Players build and upgrade robots to send on missions.
+        <h1 class="display-6">Mood</h1>
+        <p> 
+            You find yourself stranded inside a 'station' on the surface of a distant planet. 
+            You've worked here the last 5 years without so much as a power surge. 
+            But now you find yourself confronted by the inevitable.<br>
+            <br>
+            Comms are down. The Relay station is unreachable. And you're running low on supplies.<br>
+            <br>
+            Your only means of survival is to harness what little you have left. The outside is inhospitable. 
+            You send out the station's basic robot in search of supplies. After an anxious wait the bot returns. 
+            Why did it take so long? A dimly lit screen on the bot reads out the log report.<br>
 
-            Missions collect info or resources.
-
-            Collected resources are used to upgrade robots and rebuilt their station.
-
-            Collected info is used to explore uncharted territory.
-
-            The goal is to survive for as long as possible.
+            <code>
+                Scan results:<br>
+                --------------------------<br>
+                coord: (24.510, 86.834)<br>
+                Heat: 25 degK<br>
+                Soil: Hard<br>
+                Nearby structures: 1<br>
+                Warning: Unknown entity<br>
+                High level of radiation!<br>
+            </code>
         </p>
-
     </div>
 </div>
 

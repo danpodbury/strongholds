@@ -10,8 +10,8 @@ using StrongholdsAPI.Data;
 namespace StrongholdsAPI.Migrations
 {
     [DbContext(typeof(StrongholdsContext))]
-    [Migration("20220705084019_mySQL")]
-    partial class mySQL
+    [Migration("20220731063004_new_init")]
+    partial class new_init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

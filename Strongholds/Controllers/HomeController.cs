@@ -4,6 +4,7 @@ using Strongholds.Models;
 using StrongholdsUtil.Models;
 using System.Diagnostics;
 using Newtonsoft.Json;
+using Strongholds.ViewModels;
 
 namespace Strongholds.Controllers
 {
@@ -64,12 +65,12 @@ namespace Strongholds.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Claim(string username)
+        public async Task<IActionResult> Claim(SignUpView model)
         {
             if (ModelState.IsValid)
             {
-                //TODO: this is potentially vulnerable
-                var response = await API.PostQueryString($"SignUp/{username}", username);
+                //TODO: is this potentially vulnerable to injection?
+                var response = await API.PostQueryString($"SignUp/{model.Username}", model.Username);
         
                 if (response.IsSuccessStatusCode)
                 {
@@ -79,8 +80,8 @@ namespace Strongholds.Controllers
 
                     if (l.Error != null)
                     {
-                        ModelState.AddModelError("Error", l.Error.ErrorText);
-                        return RedirectToAction(nameof(SignUp), l);
+                        ModelState.AddModelError("Username", l.Error.ErrorText);
+                        return View(nameof(SignUp), model);
                     }
 
                     return View("SignUpResult", l);

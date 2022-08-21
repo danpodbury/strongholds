@@ -12,12 +12,11 @@ builder.Configuration.AddEnvironmentVariables();
 // Add services to the container.
 builder.Services.AddDbContext<StrongholdsContext>(options =>
 {
+    //options.EnableSensitiveDataLogging();
     string mySqlConnectionStr = builder.Configuration["ConnectionStrings:StrongholdsContext"];
     options.UseMySql(mySqlConnectionStr, ServerVersion.AutoDetect(mySqlConnectionStr));
     options.UseLazyLoadingProxies();
 });
-
-
 
 // Store session into Web-Server memory.
 builder.Services.AddDistributedMemoryCache();
@@ -65,12 +64,9 @@ using (var scope = app.Services.CreateScope())
 
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
+app.UseSwagger();
+app.UseSwaggerUI();
+    
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
