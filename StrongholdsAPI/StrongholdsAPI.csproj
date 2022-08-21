@@ -15,20 +15,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Static\APIspec.yaml" />
-    <None Remove="Static\css\site.css" />
-    <None Remove="Static\Index.html" />
-    <None Remove="Static\petStore.yaml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="Static\petStore.yaml" />
-    <Content Include="Static\APIspec.yaml" />
     <Content Include="Static\css\site.css">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-    <Content Include="Static\Index.html" />
+    <Content Include="Static\Index.html">
+	  <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	  <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+	</Content>
+
   </ItemGroup>
 
   <ItemGroup>
